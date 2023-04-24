@@ -1,15 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { Title1, Title2 } from "./components/utilities/TitleUtility.js"
 
-export default function App() {
+function Title1() {
   return (
     <View style={styles.container}>
-      <Title1></Title1>
-      <StatusBar style="auto" />
+      <Text>t1</Text>
     </View>
   );
 }
+function Title2() {
+    return (
+      <View style={styles.container}>
+        <Text>t2</Text>
+      </View>
+    );
+}
+
+export{Title1,Title2}
 
 const styles = StyleSheet.create({
   container: {
