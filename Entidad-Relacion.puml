@@ -1,0 +1,82 @@
+@startuml
+
+entity "Aeropuerto" as aeropuerto {
+  + AeropuertoID (PK)
+  --
+  CodigoUnico
+  Nombre
+  Localidad
+  Pais
+}
+
+entity "Avion" as avion {
+  + AvionID (PK)
+  --
+  Codigo
+  NumPlazas
+}
+
+entity "Cliente" as cliente {
+  + ClienteID (PK)
+  --
+  DNI
+  Nombre
+  Apellidos
+  Direccion
+  Telefono
+}
+
+entity "TarjetaCredito" as tarjeta {
+  + TarjetaID (PK)
+  --
+  NumeroTarjeta
+  ClienteID (FK)
+}
+
+entity "Vuelo" as vuelo {
+  + VueloID (PK)
+  --
+  CodigoUnico
+  FechaSalida
+  HoraSalida
+  FechaLlegada
+  HoraLlegada
+  AeropuertoSalidaID (FK)
+  AeropuertoLlegadaID (FK)
+  AvionID (FK)
+}
+
+entity "Reserva" as reserva {
+  + ReservaID (PK)
+  --
+  ClienteID (FK)
+  VueloID (FK)
+  NumPlazas
+}
+
+entity "TarjetaEmbarque" as tarjetaEmbarque {
+  + TarjetaEmbarqueID (PK)
+  --
+  ClienteID (FK)
+  ReservaID (FK)
+  Fecha
+  NumAsiento
+  Fila
+  Columna
+  Planta
+}
+
+' Relationships
+aeropuerto --o{ vuelo : Salida, Llegada
+avion --o{ vuelo : Realiza
+cliente --o{ tarjeta : Tiene
+cliente --o{ reserva : Realiza
+reserva --{ tarjetaEmbarque : Genera
+vuelo --{ tarjetaEmbarque : Tiene
+cliente --{ asocia : Asocia
+tarjeta --{ asocia : Asociada
+avion --o{ realiza : Realiza
+vuelo --{ pertenecer : Pertenecer
+aeropuerto --{ pertenecer : Pertenecer
+
+@enduml
