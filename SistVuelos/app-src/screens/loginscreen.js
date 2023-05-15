@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
+import { TextInput, Button, Checkbox } from 'react-native-paper';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = () => {
     // Lógica para realizar el inicio de sesión
     // Puedes hacer una llamada a la API, validar los datos, etc.
+  };
+
+  const handleRegister = () => {
+    navigation.navigate('Register');
   };
 
   return (
@@ -21,14 +26,21 @@ const LoginScreen = () => {
       />
       <TextInput
         label="Contraseña"
-        secureTextEntry
+        secureTextEntry={!showPassword}
         value={password}
         onChangeText={setPassword}
         style={styles.input}
+        right={
+          <TextInput.Icon
+            name={showPassword ? 'eye-off' : 'eye'}
+            onPress={() => setShowPassword(!showPassword)}
+          />
+        }
       />
       <Button mode="contained" onPress={handleLogin} style={styles.button}>
         Iniciar sesión
       </Button>
+      <Button onPress={handleRegister}>Registrarse</Button>
     </View>
   );
 };
