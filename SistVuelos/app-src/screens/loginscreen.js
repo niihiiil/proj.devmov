@@ -16,6 +16,10 @@ const LoginScreen = ({ navigation }) => {
     navigation.navigate('Register');
   };
 
+  const handleGoToHome = () => {
+    navigation.navigate('Home');
+  };
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -41,6 +45,7 @@ const LoginScreen = ({ navigation }) => {
         Iniciar sesión
       </Button>
       <Button onPress={handleRegister}>Registrarse</Button>
+      <Button onPress={handleGoToHome}>Home</Button>
     </View>
   );
 };

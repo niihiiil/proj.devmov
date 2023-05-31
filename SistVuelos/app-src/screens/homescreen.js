@@ -1,61 +1,77 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Appbar, Button, Avatar } from 'react-native-paper';
+import React, { useState, useRef } from 'react';
+import { View, StyleSheet, TouchableWithoutFeedback, Animated } from 'react-native';
+import { Appbar, Button, Avatar, Modal, List } from 'react-native-paper';
 
 const HomeScreen = ({ navigation }) => {
-    return (
-        <View style={styles.container}>
-            <Appbar.Header>
-                <Appbar.Content title="Sistema de Vuelos" />
-                <Appbar.Action icon="airplane" />
-            </Appbar.Header>
-            <View style={styles.buttonContainer}>
-                <Button
-                    mode="contained"
-                    onPress={() => navigation.navigate('Reserva')}
-                    style={styles.button}
-                >
-                    Reserva
-                </Button>
-                <Button
-                    mode="contained"
-                    onPress={() => navigation.navigate('Perfil')}
-                    style={styles.button}
-                >
-                    Perfil
-                </Button>
-                <Button
-                    mode="contained"
-                    onPress={() => navigation.navigate('Embarque')}
-                    style={styles.button}
-                >
-                    Embarque
-                </Button>
-                <Button
-                    mode="contained"
-                    onPress={() => navigation.navigate('InformacionVuelos')}
-                    style={styles.button}
-                >
-                    Información de Vuelos
-                </Button>
-            </View>
-        </View>
-    );
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleButtonPress = () => {
+    setModalVisible(true);
+  };
+
+  const handleModalClose = () => {
+    setModalVisible(false);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Appbar.Header>
+        <Appbar.Content title="Sistema de Vuelos" />
+        <Appbar.Action icon="airplane" />
+        <TouchableWithoutFeedback onPress={handleButtonPress}>
+          <View style={styles.menuButton}>
+            <Avatar.Icon icon="menu" size={24} />
+          </View>
+        </TouchableWithoutFeedback>
+      </Appbar.Header>
+      <Modal visible={modalVisible} onDismiss={handleModalClose} contentContainerStyle={styles.modalContainer}>
+        <List.Section>
+          <List.Item
+            title="Reserva"
+            onPress={() => {
+              navigation.navigate('Reserva');
+              handleModalClose();
+            }}
+          />
+          <List.Item
+            title="Perfil"
+            onPress={() => {
+              navigation.navigate('Perfil');
+              handleModalClose();
+            }}
+          />
+          <List.Item
+            title="Embarque"
+            onPress={() => {
+              navigation.navigate('Embarque');
+              handleModalClose();
+            }}
+          />
+          <List.Item
+            title="Información de Vuelos"
+            onPress={() => {
+              navigation.navigate('InformacionVuelos');
+              handleModalClose();
+            }}
+          />
+        </List.Section>
+      </Modal>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    buttonContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    button: {
-        marginBottom: 16,
-        width: 200,
-    },
+  container: {
+    flex: 1,
+  },
+  menuButton: {
+    marginRight: 8,
+  },
+  modalContainer: {
+    backgroundColor: 'white',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
 });
 
 export default HomeScreen;
