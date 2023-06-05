@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback, Animated } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import { Appbar, Button, Avatar, Modal, List } from 'react-native-paper';
 
 const HomeScreen = ({ navigation }) => {
@@ -18,11 +18,11 @@ const HomeScreen = ({ navigation }) => {
       <Appbar.Header>
         <Appbar.Content title="Sistema de Vuelos" />
         <Appbar.Action icon="airplane" />
-        <TouchableWithoutFeedback onPress={handleButtonPress}>
+        <TouchableOpacity onPress={handleButtonPress}>
           <View style={styles.menuButton}>
             <Avatar.Icon icon="menu" size={24} />
           </View>
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
       </Appbar.Header>
       <Modal visible={modalVisible} onDismiss={handleModalClose} contentContainerStyle={styles.modalContainer}>
         <List.Section>
