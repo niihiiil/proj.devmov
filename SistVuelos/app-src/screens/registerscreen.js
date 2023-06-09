@@ -32,25 +32,26 @@ const RegisterScreen = ({ navigation }) => {
       console.error('Error al registrar usuario:', error);
     }
   };
-
   return (
     <View style={styles.container}>
-      <TextInput
-        label="Usuario"
-        value={username}
-        onChangeText={setUsername}
-        style={styles.input}
-      />
-      <TextInput
-        label="Contraseña"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-        style={styles.input}
-      />
-      <Button mode="contained" onPress={handleRegister} style={styles.button}>
-        Registrarse
-      </Button>
+      <View style={styles.formContainer}>
+        <TextInput
+          label="Usuario"
+          value={username}
+          onChangeText={setUsername}
+          style={styles.input}
+        />
+        <TextInput
+          label="Contraseña"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+          style={styles.input}
+        />
+        <Button mode="contained" onPress={handleRegister} style={styles.button}>
+          Registrarse
+        </Button>
+      </View>
     </View>
   );
 };
@@ -58,8 +59,14 @@ const RegisterScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', // Fondo blanco con opacidad
+    alignItems: 'center',
     justifyContent: 'center',
+  },
+  formContainer: {
+    width: '80%',
+    maxWidth: 500, // Máximo ancho de 500px
+    alignSelf: 'center', // Centrar horizontalmente en el contenedor principal
   },
   input: {
     marginBottom: 16,

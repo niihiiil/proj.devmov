@@ -22,7 +22,7 @@ const LoginScreen = ({ navigation }) => {
         // Inicio de sesión exitoso, redirigir a la pantalla Home
         navigation.navigate('Home');
       } else {
-        // Error en el inicio de sesión, mostrar mensaje de error
+        // Error en el inicio de sesión
         const errorData = await response.json();
         alert(errorData.message);
       }
@@ -43,30 +43,32 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        label="Correo electrónico"
-        value={email}
-        onChangeText={setEmail}
-        style={styles.input}
-      />
-      <TextInput
-        label="Contraseña"
-        secureTextEntry={!showPassword}
-        value={password}
-        onChangeText={setPassword}
-        style={styles.input}
-        right={
-          <TextInput.Icon
-            name={showPassword ? 'eye-off' : 'eye'}
-            onPress={() => setShowPassword(!showPassword)}
-          />
-        }
-      />
-      <Button mode="contained" onPress={handleLogin} style={styles.button}>
-        Iniciar sesión
-      </Button>
-      <Button onPress={handleRegister}>Registrarse</Button>
-      <Button onPress={handleGoToHome}>Home</Button>
+      <View style={styles.formContainer}>
+        <TextInput
+          label="Correo electrónico"
+          value={email}
+          onChangeText={setEmail}
+          style={styles.input}
+        />
+        <TextInput
+          label="Contraseña"
+          secureTextEntry={!showPassword}
+          value={password}
+          onChangeText={setPassword}
+          style={styles.input}
+          right={
+            <TextInput.Icon
+              name={showPassword ? 'eye-off' : 'eye'}
+              onPress={() => setShowPassword(!showPassword)}
+            />
+          }
+        />
+        <Button mode="contained" onPress={handleLogin} style={styles.button}>
+          Iniciar sesión
+        </Button>
+        <Button onPress={handleRegister}>Registrarse</Button>
+        <Button onPress={handleGoToHome}>Home</Button>
+      </View>
     </View>
   );
 };
@@ -74,8 +76,13 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+    alignItems: 'center',
     justifyContent: 'center',
+  },
+  formContainer: {
+    width: '80%',
+    maxWidth: 500, 
   },
   input: {
     marginBottom: 16,
@@ -86,3 +93,4 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
+
