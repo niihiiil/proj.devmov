@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { TextInput, Button, Checkbox } from 'react-native-paper';
+import { View, StyleSheet, Alert } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
+import EntityClass from '../../EntityClass';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -9,27 +10,19 @@ const LoginScreen = ({ navigation }) => {
 
   const handleLogin = async () => {
     try {
-      // Realizar la llamada a la API para validar las credenciales
-      const response = await fetch('http://nativeproj:8001/api/security/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username: email, password }),
-      });
+      const entity = new EntityClass();
+      const path = 'usuarios/login';
+      const body = {
+        Usuario: email,
+        Contraseña: password,
+      };
 
-      if (response.ok) {
-        // Inicio de sesión exitoso, redirigir a la pantalla Home
-        navigation.navigate('Home');
-      } else {
-        // Error en el inicio de sesión
-        const errorData = await response.json();
-        alert(errorData.message);
-      }
+      const response = await entity.execute(path, 'POST', body);
+
+      Alert.alert('Inicio de sesión exitoso');
+      navigation.navigate('Home');
     } catch (error) {
-      // Error en la conexión o en la solicitud HTTP
-      console.error('Error:', error);
-      alert('Ocurrió un error en el inicio de sesión');
+      Alert.alert('Error', error.message);
     }
   };
 
@@ -76,13 +69,13 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     alignItems: 'center',
     justifyContent: 'center',
   },
   formContainer: {
     width: '80%',
-    maxWidth: 500, 
+    maxWidth: 500,
   },
   input: {
     marginBottom: 16,
@@ -93,4 +86,3 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
-
